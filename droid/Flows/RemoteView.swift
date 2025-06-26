@@ -18,6 +18,7 @@ struct RemoteView: View {
     //погано, але для демонстрації підійде
     @State var client:Artemisia = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
     @State  private var bag = Set<AnyCancellable>()
+
     
     var body: some View {
         VStack{
@@ -45,6 +46,10 @@ struct RemoteView: View {
         }
         .onAppear {
             deadSimpleReadingFromMQTTBrokerDemo()
+            
+            NotificationCenter.default.addObserver(forName: Constants.MQQTNotification, object: nil, queue: nil) { _ in
+                self.deadSimpleReadingFromMQTTBrokerDemo()
+            }
         }
         .backgrounded()
         

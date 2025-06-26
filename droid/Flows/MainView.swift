@@ -68,7 +68,7 @@ struct MainView: View {
         .alert(item: $bleService.error, content: { error in
             Alert(
                 title: Text("Erorr"),
-                message: Text(error.message),
+                message: Text(error.customMessage),
                 dismissButton: .default(Text("Okay"))
             )
         })

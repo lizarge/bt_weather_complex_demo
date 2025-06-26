@@ -43,16 +43,4 @@ extension View {
     }
 }
 
-class WError: Error, Identifiable {
-    
-    var message: String
-    
-    init(_ message: Error?) {
-        self.message = message?.localizedDescription ?? "Unknown error"
-    }
-    
-    init(_ message: String) {
-        self.message = message
-    }
-            
-}
+

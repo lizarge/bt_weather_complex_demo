@@ -54,6 +54,11 @@ struct ConnectionView: View {
             HStack {
                 Spacer()
                 Button(action: {
+                    Constants.baseEndpointURL = host
+                    Constants.baseEndpointPort = port
+                    
+                    NotificationCenter.default.post(name: Constants.MQQTNotification, object: nil)
+                    
                     dismiss()
                 }) {
                     Text("Apply")

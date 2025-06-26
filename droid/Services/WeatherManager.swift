@@ -21,7 +21,9 @@ class WeatherManager : ObservableObject {
     private var bag = Set<AnyCancellable>()
     
     init() {
-       
+        NotificationCenter.default.addObserver(forName: Constants.MQQTNotification, object: nil, queue: nil) { notification in
+            self.updateSuscribtion()
+        }
     }
     
     func updateSuscribtion() {

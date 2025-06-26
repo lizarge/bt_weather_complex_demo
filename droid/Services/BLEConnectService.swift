@@ -34,7 +34,9 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, CBPeripheralDelega
     func disconnect() {
         if let peripheral = connectedPeripheral?.peripheral {
             centralManager?.cancelPeripheralConnection(peripheral)
-            connectedPeripheral = nil
+            DispatchQueue.main.async {
+                self.connectedPeripheral = nil
+            }
         }
     }
     
@@ -55,8 +57,12 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, CBPeripheralDelega
                 print("Weather data stream finished.")
             case .failure(let error):
                 print("Error receiving weather data: \(error)")
-                self.error = WError(error)
-                self.disconnect()
+
+                DispatchQueue.main.async {
+                    self.error = WError(error)
+                }
+                
+                //self.disconnect()
             }
         }, receiveValue: { weater in
     

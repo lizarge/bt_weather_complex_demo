@@ -9,9 +9,13 @@ import Foundation
 import SwiftUI
 
 
+
+
 struct Constants {
     @AppStorage("baseEndpointURL")  static var baseEndpointURL = "13.48.148.89"
     @AppStorage("baseEndpointPort") static var baseEndpointPort = "1883"
+    
+    static let MQQTNotification = Notification.Name("MQQTHOSTUPDATED")
     
     struct BluetoothService {
         static let serviceUUID = "EF680200-9B35-4933-9B10-52FFA9740042"
