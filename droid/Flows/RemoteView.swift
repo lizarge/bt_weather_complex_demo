@@ -1,0 +1,73 @@
+//
+//  RemoteView.swift
+//  droid
+//
+//  Created by ankudinov aleksandr on 25.06.2025.
+//
+
+import SwiftUI
+import Artemisia
+import Combine
+
+struct RemoteView: View {
+    
+    @State var temperature: Int?
+    @State var humidity:  Int?
+    @State var pressuer:  Int?
+    
+    //погано, але для демонстрації підійде
+    @State var client:Artemisia = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
+    @State  private var bag = Set<AnyCancellable>()
+    
+    var body: some View {
+        VStack{
+            Spacer().frame(height: 100)
+            
+            ClockView()
+
+            Spacer()
+            
+            VStack {
+                
+                WeatherLabel(title: "Temperature", value: temperature, imageName:nil).padding(50)
+                
+                WeatherLabel(title: "Humidity", value: humidity, imageName:"humidity").padding(50)
+                
+                WeatherLabel(title: "Pressure", value: pressuer, imageName:"wind").padding(50)
+                
+            }.background(.white.opacity(0.2))
+                .cornerRadius(80)
+                .padding(.horizontal, 50)
+            
+            
+            Spacer().frame(height: 40)
+    
+        }
+        .onAppear {
+            deadSimpleReadingFromMQTTBrokerDemo()
+        }
+        .backgrounded()
+        
+    }
+    
+    func deadSimpleReadingFromMQTTBrokerDemo() {
+        client = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
+    
+        self.client["weather/temperature"].sink {  (msg: String) in
+            temperature = Int(msg)
+        }.store(in: &bag)
+        
+        self.client["weather/humidity"].sink { (msg: String) in
+            humidity = Int(msg)
+        }.store(in: &bag)
+        
+        self.client["weather/pressure"].sink {  (msg: String) in
+            pressuer = Int(msg)
+        }.store(in: &bag)
+    }
+        
+}
+
+#Preview {
+    RemoteView()
+}

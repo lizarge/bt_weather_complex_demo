@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D91247DA2E0C4D630090DBED /* Artemisia in Frameworks */ = {isa = PBXBuildFile; productRef = D91247D92E0C4D630090DBED /* Artemisia */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D91247962E0BF6400090DBED /* droid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = droid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D91247DC2E0C52E50090DBED /* Exceptions for "droid" folder in "droid" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D91247952E0BF6400090DBED /* droid */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D91247982E0BF6400090DBED /* droid */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D91247DC2E0C52E50090DBED /* Exceptions for "droid" folder in "droid" target */,
+			);
 			path = droid;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91247DA2E0C4D630090DBED /* Artemisia in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = droid;
 			packageProductDependencies = (
+				D91247D92E0C4D630090DBED /* Artemisia */,
 			);
 			productName = droid;
 			productReference = D91247962E0BF6400090DBED /* droid.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = D912478D2E0BF6400090DBED;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D91247D82E0C4D630090DBED /* XCRemoteSwiftPackageReference "Artemisia" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D91247972E0BF6400090DBED /* Products */;
 			projectDirPath = "";
@@ -256,9 +278,12 @@
 				DEVELOPMENT_TEAM = NG8TF397V4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = droid/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Everything is better with Bluetooth";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = I;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -284,9 +309,12 @@
 				DEVELOPMENT_TEAM = NG8TF397V4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = droid/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Everything is better with Bluetooth";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = I;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -324,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D91247D82E0C4D630090DBED /* XCRemoteSwiftPackageReference "Artemisia" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aemaeth-me/Artemisia";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D91247D92E0C4D630090DBED /* Artemisia */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D91247D82E0C4D630090DBED /* XCRemoteSwiftPackageReference "Artemisia" */;
+			productName = Artemisia;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D912478E2E0BF6400090DBED /* Project object */;
 }

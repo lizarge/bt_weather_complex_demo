@@ -1,0 +1,15 @@
+{
+  "originHash" : "30c3b2fcb4a4dd69611d76bc8e8b3fc671b07c7f43e72e0f16e7bdb36c30e353",
+  "pins" : [
+    {
+      "identity" : "artemisia",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/aemaeth-me/Artemisia",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2770946dd74f06906117e57619aee1922709ca17"
+      }
+    }
+  ],
+  "version" : 3
+}
