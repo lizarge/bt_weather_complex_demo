@@ -54,15 +54,14 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, CBPeripheralDelega
         self.connectedPeripheral?.weatherPublisher.sink(receiveCompletion: { completion in
             completionHandler: switch completion {
             case .finished:
-                print("Weather data stream finished.")
+         
             case .failure(let error):
-                print("Error receiving weather data: \(error)")
+                print("Error receiving weather data: \(error.customMessage)")
 
                 DispatchQueue.main.async {
-                    self.error = WError(error)
+                    self.error = error
+                    self.disconnect()
                 }
-                
-                //self.disconnect()
             }
         }, receiveValue: { weater in
     

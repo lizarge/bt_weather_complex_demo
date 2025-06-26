@@ -40,6 +40,7 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
             peripheral.discoverCharacteristics(nil, for: weatherService) // Discover all characteristics
             
             self.startObserveWeather()
+            
         } else {
             print("Propper Weather service not found")
             self.weatherSubject.send(completion: .failure( WError("Propper Weather service not found")))
@@ -97,9 +98,12 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
         Timer.publish(every: 3.0, on: .main, in: .default)
          .autoconnect()
          .sink { _ in
-             self.characteristicsBag.forEach { characteristics in
-                 self.peripheral.readValue(for: characteristics)
+             if self.peripheral.state == .connected {
+                 self.characteristicsBag.forEach { characteristics in
+                     self.peripheral.readValue(for: characteristics)
+                 }
              }
+                 
          }.store(in: &bag)
     }
     
