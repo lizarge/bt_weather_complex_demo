@@ -17,6 +17,7 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
     static let shared = BLEConnectService()
     
     @MainActor @Published var discoveredPeripherals: [CBPeripheral] = []
+    
     @Published var error: WError?
     @Published  var connectedPeripheral: WeatherPeripheralService?
     
@@ -42,7 +43,6 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
     }
     
     //Підключення до пристрою відбулось, публікуємо його як підключений пристрій, підписуємось на WeatherPeripheralService для отримання данних про помилки
-    
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         
         let service = WeatherPeripheralService(peripheral: peripheral)
@@ -82,7 +82,7 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
         }
     }
     
-    //Публікуємо знайдені пристрої
+    //Публікуємо знайдені пристрої, якщо їх ще немає в масиві discoveredPeripherals
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
    
         DispatchQueue.main.async {
@@ -92,7 +92,8 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
         }
     }
     
-    //Обробка помилок під час підключення, відключення та інших подій
+    //Далі Обробка помилок під час підключення, відключення та інших подій
+    
     func centralManager(_ central: CBCentralManager, didUpdateANCSAuthorizationFor peripheral: CBPeripheral){
         DispatchQueue.main.async {
             self.error = WError("Connection Event Did Occur")
