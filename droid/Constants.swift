@@ -20,8 +20,8 @@ struct Constants {
         
         struct BluetoothServiceChannels {
             static let temperatureChannel =     "506A55C4-B5E7-46FA-8326-8ACAEB1189EB"
-            static let humidityChannel =        "51838AFF-2D9A-B32A-B32A-8187E41664BA"
-            static let pressureChannel =        "753E3050-DF06-4B53-B090-5E1D810C4383"
+            static let humidityChannel =        "753E3050-DF06-4B53-B090-5E1D810C4383"
+            static let pressureChannel =        "51838AFF-2D9A-B32A-B32A-8187E41664BA"
         }
     }
         
