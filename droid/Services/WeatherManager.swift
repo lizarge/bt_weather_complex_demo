@@ -13,7 +13,7 @@ import Artemisia
 //WeatherManager який імлементує бізнес логіку для отримання даних погоди з блютуз менеджера і публікація до MQTT брокера
 //Володіє сервісами BLEConnectService та Artemisia для роботи з MQTT брокером
 // - демо брокер broker.emqx.io,
-// - прод броке 13.48.148.89
+// - прод брокер 13.48.148.89
 
 class WeatherManager : ObservableObject {
     

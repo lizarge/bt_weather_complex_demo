@@ -21,7 +21,7 @@
 SwiftUI, MVV, Combine, CoreBluetooth, Artemisia
 
 Відео:
-https://streamable.com/giht71
+https://streamable.com/l7fsmt
 
 
 Скрін:
