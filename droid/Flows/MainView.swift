@@ -63,8 +63,8 @@ struct MainView: View {
                             }).progressViewStyle(CircularProgressViewStyle(tint: Color.white))
                         }
                     }
-                    .padding(.top, 30)
-                    .padding(.trailing, 55)
+                    .padding(.top,  UIDevice.current.userInterfaceIdiom == .pad ? 30 : 15)
+                    .padding(.trailing, UIDevice.current.userInterfaceIdiom == .pad ? 55 : 25)
                 }
                 Spacer()
             }
