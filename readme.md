@@ -24,4 +24,4 @@ https://streamable.com/giht71
 
 
 
-![screenshot](https://ibb.co/dJwNNrmj)
+![screenshot](https://i.ibb.co/k6sLLxm5/Screenshot-2025-06-27-at-16-01-43.png)
