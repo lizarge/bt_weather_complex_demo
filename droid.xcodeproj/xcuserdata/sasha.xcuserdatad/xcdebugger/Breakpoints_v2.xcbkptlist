@@ -72,7 +72,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EADC340A-CE2C-4A5F-A86F-CB59D2A194F1"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "droid/Services/BLEConnectService.swift"
@@ -82,6 +82,36 @@
             endingLineNumber = "121"
             landmarkName = "centralManager(_:didDisconnectPeripheral:error:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EADC340A-CE2C-4A5F-A86F-CB59D2A194F1 - 23e921d26d279cfa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "droid.BLEConnectService.centralManager(_: __C.CBCentralManager, didDisconnectPeripheral: __C.CBPeripheral, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "droid.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sasha/respository/droid/droid/Services/BLEConnectService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121">
+               </Location>
+               <Location
+                  uuid = "EADC340A-CE2C-4A5F-A86F-CB59D2A194F1 - 5cdcc31b0a7ceea2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in droid.BLEConnectService.centralManager(_: __C.CBCentralManager, didDisconnectPeripheral: __C.CBPeripheral, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "droid.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sasha/respository/droid/droid/Services/BLEConnectService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -318,8 +348,8 @@
             filePath = "droid/Flows/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -718,8 +748,8 @@
             filePath = "droid/Flows/MainView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -801,6 +831,22 @@
             startingLineNumber = "61"
             endingLineNumber = "61"
             landmarkName = "reloadRemoteMTQQPublisher(connectedPeripheral:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F12E5557-FC77-4195-9622-A5A724DF875A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "droid/Services/WeatherPeripheralService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "peripheral(_:didUpdateValueFor:error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

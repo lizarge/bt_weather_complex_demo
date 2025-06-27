@@ -61,7 +61,7 @@ struct SensorView: View {
             }.padding(50)
                 .background(.white.opacity(0.2))
                 .cornerRadius(80)
-                .padding(.horizontal, 50)
+                .padding(.horizontal, 25)
             
             Spacer().frame(height: 40)
                 

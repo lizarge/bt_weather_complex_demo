@@ -42,6 +42,7 @@ struct MainView: View {
                     }
                     .tag(1)
                 }
+                .pickerStyle(.segmented)
             }
             
             VStack {
