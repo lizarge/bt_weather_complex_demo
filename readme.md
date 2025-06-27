@@ -20,8 +20,10 @@
 Стек:
 SwiftUI, MVV, Combine, CoreBluetooth, Artemisia
 
+Відео:
 https://streamable.com/giht71
 
 
+Скрін:
 
 ![screenshot](https://i.ibb.co/k6sLLxm5/Screenshot-2025-06-27-at-16-01-43.png)
