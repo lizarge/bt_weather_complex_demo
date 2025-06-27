@@ -8,9 +8,7 @@
 import Foundation
 import SwiftUI
 
-
-
-
+// Констатнти для керування додатком
 struct Constants {
     @AppStorage("baseEndpointURL")  static var baseEndpointURL = "13.48.148.89"
     @AppStorage("baseEndpointPort") static var baseEndpointPort = "1883"
@@ -27,7 +25,6 @@ struct Constants {
         }
     }
         
-    
-    
+
 }
 

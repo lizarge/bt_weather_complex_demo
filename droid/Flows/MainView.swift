@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+// Таб представлення с локальних та "віддалених" датчиків
+// Також тут показуємо помилки, якщо вони виникають
+
 struct MainView: View {
     
     @State private var selectedIndex: Int = 0
@@ -44,14 +47,13 @@ struct MainView: View {
                     }) {
                         
                         if bleService.connectedPeripheral != nil {
-
                             Image(systemName: "link")
                                 .resizable()
                                 .renderingMode(.template).foregroundColor(.white)
                                 .frame(width: 40, height: 40)
                         } else {
                             ProgressView(label: {
-                                Text("Connect Here").foregroundColor(.white)
+                                Text("Tap To Connect").foregroundColor(.white)
                             }).progressViewStyle(CircularProgressViewStyle(tint: Color.white))
                         }
                     }

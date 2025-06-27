@@ -10,6 +10,8 @@ import Combine
 import CoreBluetooth
 import SwiftUI
 
+// Реалізация роботи з перефірійним пристроєм низкорівнева, перевірка того що девайс підключений,підримує потрібний сервіс, підписка на .notify від характеристики температури, отримання значень з іних характеристик по таймеру, і публікація відповідних значень через WeatherPublisher, публікація помилок безпосередньо пристрою
+
 class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
 
     var weatherPublisher: AnyPublisher<Weather, WError> {
@@ -30,6 +32,7 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
         self.peripheral.delegate = self
     }
     
+    //Перевіряємо чи підключений перефірійний пристрій підримоє наш сервіс, якщо так - старуємо обсерв подій від нього, якщо ні то публікуємо помилку
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         
         guard handleError(error) else {
@@ -47,6 +50,7 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
         }
     }
     
+    //Після того як знайдені характеристики, підписуємося на .notify для температури, інші характеристики зберігаємо в масив для подальшого оновлення по таймеру
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard handleError(error) else {
             return
@@ -63,6 +67,7 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
         }
     }
         
+    //При отриманні значення з характеристики, оновлюємо відповідне поле в Weather моделі, публікуємо зніміни через weatherSubject
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard handleError(error) else {
             return
@@ -94,6 +99,7 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
         
     }
     
+    //Запускаємо таймер для періодичного отримання значень з інших характеристик, окрім температури
     private func startObserveWeather(){
         Timer.publish(every: 3.0, on: .main, in: .default)
          .autoconnect()
@@ -103,10 +109,11 @@ class WeatherPeripheralService :NSObject, CBPeripheralDelegate {
                      self.peripheral.readValue(for: characteristics)
                  }
              }
-                 
          }.store(in: &bag)
     }
     
+    
+    // Обробка помилок, якщо помилка є - публікуємо її через weatherSubject
     private func handleError(_ error: Error?) -> Bool {
         
         if error == nil {

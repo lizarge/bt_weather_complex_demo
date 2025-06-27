@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+//Відображення опціонального цілого числа як тексту чи -
 struct WeatherText: View {
     
-     var label:Int?
+    var label:Int?
     
     var body: some View {
         Text(label != nil ? "\(label!)" : "-")

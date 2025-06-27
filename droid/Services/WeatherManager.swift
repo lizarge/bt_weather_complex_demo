@@ -8,12 +8,13 @@
 import Foundation
 import SwiftUI
 import Combine
-
 import Artemisia
+
+//WeatherManager який імлементує бізнес логіку для отримання даних погоди з блютуз менеджера і публікація до MQTT брокера
 
 class WeatherManager : ObservableObject {
     
-    @Published var weatherData: Weather?
+    @Published var weatherData: Weather? //холдер погоди
     
     var connectionManager = BLEConnectService.shared
     var client:Artemisia = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
@@ -21,14 +22,18 @@ class WeatherManager : ObservableObject {
     private var bag = Set<AnyCancellable>()
     
     init() {
+        
+        //на випадок оновлення адреси MQTT брокера в ConectionView
         NotificationCenter.default.addObserver(forName: Constants.MQQTNotification, object: nil, queue: nil) { notification in
-            self.updateSuscribtion()
+            self.reloadRemoteMTQQPublisher()
         }
     }
     
-    func updateSuscribtion() {
+    func reloadRemoteMTQQPublisher() {
         
         client = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
+        
+        //Підписуємось на зміни від переферійного датчику
         
         connectionManager.connectedPeripheral?.weatherPublisher.sink(receiveCompletion: { completion in
             completionHandler: switch completion {
@@ -37,6 +42,7 @@ class WeatherManager : ObservableObject {
             }
         }, receiveValue: { weater in
             
+                //Оновлюємо дані погоди для паблішера, та публікуємо дані в MQTT брокер
                 DispatchQueue.main.async {
                     self.weatherData = weater
                 }

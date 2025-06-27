@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// допоміжна фігня 
 extension View {
 
     /// - Parameters:

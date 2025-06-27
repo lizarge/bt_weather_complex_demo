@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//UI для керування підключенням до периферійних пристроїв та адреси MQTT брокера
 struct ConnectionView: View {
     
     @Environment(\.dismiss) var dismiss
@@ -24,11 +25,10 @@ struct ConnectionView: View {
             List(bleService.discoveredPeripherals, id: \.identifier) { peripheral in
                 
                 HStack {
-                   
                     
                     Text(peripheral.name ?? "Unknown Peripheral").font(.system(size: 30)).foregroundColor(.white).onTapGesture {
+                        // Підключення до вибраного периферійного пристрою
                         bleService.connect(to: peripheral)
-                        
                         dismiss()
                     }
                 }
@@ -54,16 +54,18 @@ struct ConnectionView: View {
             HStack {
                 Spacer()
                 Button(action: {
+                    
+                    //Оскільки це демо проєкт використовуємо NotificationCenter для того щоб оновити дані в RemoteView та WeatherManager, в нормальному додатку не буде окремих єкземплярів для Artemisia
+                    
                     Constants.baseEndpointURL = host
                     Constants.baseEndpointPort = port
-                    
+
                     NotificationCenter.default.post(name: Constants.MQQTNotification, object: nil)
                     
                     dismiss()
                 }) {
                     Text("Apply")
                         .roundBorder().foregroundColor(.white)
-                    
                     
                 }.padding()
             }

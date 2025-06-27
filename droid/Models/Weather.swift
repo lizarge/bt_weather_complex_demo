@@ -8,6 +8,8 @@
 import Foundation
 import Artemisia
 
+//модель погоди 
+
 struct Weather  {
     var temperature:Int?
     var humidity:Int?

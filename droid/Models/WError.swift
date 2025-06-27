@@ -7,6 +7,8 @@
 
 import Foundation
 
+// WError кастомні помилки 
+
 class WError: Error, Identifiable {
     
     var customMessage: String

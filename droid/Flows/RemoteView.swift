@@ -9,13 +9,15 @@ import SwiftUI
 import Artemisia
 import Combine
 
+// Простий демонстраційний клас для підключення до MQTT брокера і відображення данних з нього, реалізовано оновленння адресси брокера через notification center
+
 struct RemoteView: View {
     
     @State var temperature: Int?
     @State var humidity:  Int?
     @State var pressuer:  Int?
     
-    //погано, але для демонстрації підійде
+    //тут краще використовувати ObservableObject, але для простоти використаємо State
     @State var client:Artemisia = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
     @State  private var bag = Set<AnyCancellable>()
 
@@ -31,31 +33,29 @@ struct RemoteView: View {
             VStack {
                 
                 WeatherLabel(title: "Temperature", value: temperature, imageName:nil).padding(50)
-                
                 WeatherLabel(title: "Humidity", value: humidity, imageName:"humidity").padding(50)
-                
                 WeatherLabel(title: "Pressure", value: pressuer, imageName:"wind").padding(50)
                 
             }.background(.white.opacity(0.2))
                 .cornerRadius(80)
                 .padding(.horizontal, 50)
             
-            
             Spacer().frame(height: 40)
     
         }
         .onAppear {
-            deadSimpleReadingFromMQTTBrokerDemo()
             
+            updateMQTTBrokerReader()
+        
             NotificationCenter.default.addObserver(forName: Constants.MQQTNotification, object: nil, queue: nil) { _ in
-                self.deadSimpleReadingFromMQTTBrokerDemo()
+                self.updateMQTTBrokerReader()
             }
         }
         .backgrounded()
         
     }
     
-    func deadSimpleReadingFromMQTTBrokerDemo() {
+    func updateMQTTBrokerReader() {
         client = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
     
         self.client["weather/temperature"].sink {  (msg: String) in

@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 import Combine
 
+
 @main
 struct droidApp: App {
     
@@ -22,7 +23,6 @@ struct droidApp: App {
 }
 
 class AppDelegate : UIResponder, UIApplicationDelegate {
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
     }
