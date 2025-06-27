@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreBluetooth
 
 //UI для керування підключенням до периферійних пристроїв та адреси MQTT брокера
 struct ConnectionView: View {
@@ -14,8 +15,11 @@ struct ConnectionView: View {
     
     @State private var host: String = Constants.baseEndpointURL
     @State private var port: String = Constants.baseEndpointPort
+    @State private var isPressed = false
     
-    @StateObject private var bleService = BLEConnectService.shared
+    @StateObject var bleService:BLEConnectService
+    
+    @State var selectedPeripheral: CBPeripheral?
     
     var body: some View {
         VStack {
@@ -26,14 +30,24 @@ struct ConnectionView: View {
                 
                 HStack {
                     
-                    Text(peripheral.name ?? "Unknown Peripheral").font(.system(size: 30)).foregroundColor(.white).onTapGesture {
+                    Button(action: {
                         // Підключення до вибраного периферійного пристрою
+                        
+                        bleService.disconnect()
+                        
                         bleService.connect(to: peripheral)
-                        dismiss()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            dismiss()
+                        }
+                        
+                        selectedPeripheral = peripheral
+                    }) {
+                        Text(peripheral.name ?? "Unknown Peripheral").font(.system(size: 30)).foregroundColor(.white)
                     }
                 }
                 .padding(.bottom, 10)
-                .listRowBackground(Color.clear)
+                .listRowBackground( selectedPeripheral == peripheral ? Color.red.opacity(0.5) : Color.clear )
             }
             .scrollIndicators(.hidden)
             .scrollContentBackground(.hidden)
@@ -49,6 +63,7 @@ struct ConnectionView: View {
                     .font(.system(size: 30)).foregroundColor(.white)
                 TextField("MQTT Port", text: $port)
                     .font(.system(size: 30)).foregroundColor(.white)
+                
             }.roundBorder()
             
             HStack {
@@ -75,5 +90,5 @@ struct ConnectionView: View {
 }
 
 #Preview {
-    ConnectionView()
+    ConnectionView( bleService: BLEConnectService())
 }

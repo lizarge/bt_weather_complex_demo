@@ -11,13 +11,17 @@ import Combine
 import Artemisia
 
 //WeatherManager який імлементує бізнес логіку для отримання даних погоди з блютуз менеджера і публікація до MQTT брокера
+//Володіє сервісами BLEConnectService та Artemisia для роботи з MQTT брокером
+// - демо брокер broker.emqx.io,
+// - прод броке 13.48.148.89
 
 class WeatherManager : ObservableObject {
     
     @Published var weatherData: Weather? //холдер погоди
     
-    var connectionManager = BLEConnectService.shared
-    var client:Artemisia = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
+    var connectionManager = BLEConnectService()
+    
+    var client:Artemisia = Artemisia.connect(host:  Constants.baseEndpointURL, port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
     
     private var bag = Set<AnyCancellable>()
     
@@ -25,17 +29,23 @@ class WeatherManager : ObservableObject {
         
         //на випадок оновлення адреси MQTT брокера в ConectionView
         NotificationCenter.default.addObserver(forName: Constants.MQQTNotification, object: nil, queue: nil) { notification in
-            self.reloadRemoteMTQQPublisher()
+            self.client = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
         }
+        
+        connectionManager.$connectedPeripheral.sink { value in
+            if let connectedPeripheral = value {
+                self.reloadRemoteMTQQPublisher(connectedPeripheral: connectedPeripheral)
+            }
+        }.store(in: &bag)
+        
     }
     
-    func reloadRemoteMTQQPublisher() {
-        
-        client = Artemisia.connect(host:  Constants.baseEndpointURL,port: Int32(Constants.baseEndpointPort) ?? 1883 , version: .v5)
+    func reloadRemoteMTQQPublisher(connectedPeripheral:WeatherPeripheralService) {
+  
         
         //Підписуємось на зміни від переферійного датчику
-        
-        connectionManager.connectedPeripheral?.weatherPublisher.sink(receiveCompletion: { completion in
+
+        connectedPeripheral.weatherPublisher.sink(receiveCompletion: { completion in
             completionHandler: switch completion {
                 default:
                 break;
@@ -48,7 +58,7 @@ class WeatherManager : ObservableObject {
                 }
             
                 if let temp = weater.temperature {
-                    self.client["weather/temperature"].publish(message: String(temp))
+                    let r = self.client["weather/temperature"].publish(message: String(temp))
                 }
                 
                 if let humidity = weater.humidity {

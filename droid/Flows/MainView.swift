@@ -6,22 +6,28 @@
 //
 
 import SwiftUI
+import Combine
 
 // Таб представлення с локальних та "віддалених" датчиків
-// Також тут показуємо помилки, якщо вони виникають
+// Оскільки це центральний екран програми він володіє WeatherManager (бізнес логіка), Також тут показуємо помилки, якщо вони виникають
 
 struct MainView: View {
     
     @State private var selectedIndex: Int = 0
     @State private var showSettings: Bool = false
-    @StateObject private var bleService = BLEConnectService.shared
+    
+    @State private var error: WError?
+    
+    @StateObject var weatherManager = WeatherManager()
+    
+    @State var bag = Set<AnyCancellable>()
     
     var body: some View {
         ZStack {
             VStack {
                 TabView(selection: $selectedIndex) {
                     NavigationStack() {
-                        SensorView()
+                        SensorView(weatherManager: weatherManager)
                     }
                     .tabItem {
                         Label("Local", systemImage: "thermometer.variable")
@@ -43,10 +49,9 @@ struct MainView: View {
                     Spacer()
                     Button(action: {
                         showSettings.toggle()
-                        bleService.disconnect()
                     }) {
                         
-                        if bleService.connectedPeripheral != nil {
+                        if weatherManager.connectionManager.connectedPeripheral != nil {
                             Image(systemName: "link")
                                 .resizable()
                                 .renderingMode(.template).foregroundColor(.white)
@@ -64,17 +69,21 @@ struct MainView: View {
             }
         }
         .sheet(isPresented: $showSettings) {
-            ConnectionView()
+            ConnectionView(bleService: weatherManager.connectionManager)
                 .presentationBackground(.ultraThinMaterial)
         }
-        .alert(item: $bleService.error, content: { error in
+        .alert(item: $error, content: { error in
             Alert(
                 title: Text("Erorr"),
                 message: Text(error.customMessage),
                 dismissButton: .default(Text("Okay"))
             )
         })
-      
+        .onAppear() {
+            weatherManager.connectionManager.$error.sink { error in
+                self.error = error
+            }.store(in: &bag)
+        }
     }
 }
 

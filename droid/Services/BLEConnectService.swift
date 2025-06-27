@@ -14,17 +14,15 @@ import SwiftUI
 
 class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
     
-    static let shared = BLEConnectService()
-    
     @MainActor @Published var discoveredPeripherals: [CBPeripheral] = []
     
     @Published var error: WError?
-    @Published  var connectedPeripheral: WeatherPeripheralService?
+    @Published var connectedPeripheral: WeatherPeripheralService?
     
     private var centralManager: CBCentralManager?
     private var bag = Set<AnyCancellable>()
     
-    private override init() {
+    override init() {
         super.init()
         self.centralManager = CBCentralManager(delegate: self, queue: .global())
     }
@@ -45,14 +43,18 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
     //Підключення до пристрою відбулось, публікуємо його як підключений пристрій, підписуємось на WeatherPeripheralService для отримання данних про помилки
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         
+        DispatchQueue.main.async {
+            self.error = nil
+        }
+        
         let service = WeatherPeripheralService(peripheral: peripheral)
         
         peripheral.delegate = service
         peripheral.discoverServices(nil)
 
         DispatchQueue.main.async {
-            self.connectedPeripheral = service
-        }
+           
+        self.connectedPeripheral = service
         
         self.connectedPeripheral?.weatherPublisher.sink(receiveCompletion: { completion in
             completionHandler: switch completion {
@@ -67,8 +69,10 @@ class BLEConnectService : NSObject, CBCentralManagerDelegate, ObservableObject {
                 }
             }
         }, receiveValue: { weater in
-    
+           
         }).store(in: &self.bag)
+            
+        }
     }
     
     //Перевіряємо що bluetooth увімкнено, якщо так, починаємо сканування за пристроями, якщо ні, то публікуємо помилку

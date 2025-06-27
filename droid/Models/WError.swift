@@ -9,7 +9,11 @@ import Foundation
 
 // WError кастомні помилки 
 
-class WError: Error, Identifiable {
+class WError: Error, Identifiable, Equatable {
+    
+    static func == (lhs: WError, rhs: WError) -> Bool {
+        return lhs.customMessage == rhs.customMessage
+    }
     
     var customMessage: String
     

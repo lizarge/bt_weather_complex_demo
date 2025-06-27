@@ -45,7 +45,7 @@ struct RemoteView: View {
         }
         .onAppear {
             
-            updateMQTTBrokerReader()
+            self.updateMQTTBrokerReader()
         
             NotificationCenter.default.addObserver(forName: Constants.MQQTNotification, object: nil, queue: nil) { _ in
                 self.updateMQTTBrokerReader()

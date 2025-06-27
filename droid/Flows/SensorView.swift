@@ -8,12 +8,12 @@
 import SwiftUI
 
 
-// UI текста погоди з реалтаймі, оскільки це головний екран програми він володіє WeatherManager (бізнес логіка) 
+// UI текста погоди з реалтаймі
+
 struct SensorView: View {
     
-    @StateObject var weatherManager = WeatherManager()
-    @StateObject private var bleService = BLEConnectService.shared
-    
+    @ObservedObject var weatherManager:WeatherManager
+ 
     var body: some View {
         VStack{
             
@@ -28,6 +28,10 @@ struct SensorView: View {
                 WeatherText(label: weatherManager.weatherData?.temperature)
                     .font(.system(size: 200))
                     .foregroundStyle(.white)
+                Text("°")
+                    .font(.system(size: 200))
+                    .foregroundStyle(.white)
+             
                 Spacer()
             }.padding(50)
             
@@ -62,13 +66,10 @@ struct SensorView: View {
             Spacer().frame(height: 40)
                 
         }
-        .onChange(of: bleService.connectedPeripheral) { _ in
-            weatherManager.reloadRemoteMTQQPublisher()
-        }
         .backgrounded()
     }
 }
 
 #Preview {
-    SensorView()
+    SensorView(weatherManager: WeatherManager() )
 }

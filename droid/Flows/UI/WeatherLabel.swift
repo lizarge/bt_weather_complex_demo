@@ -18,13 +18,13 @@ struct WeatherLabel: View {
         VStack(spacing: 0) {
             HStack {
                 
-                Text(title).font(.system(size: 70))
+                Text(title).font(.system(size: 40))
                     .foregroundStyle(.white)
                 
                 Spacer()
                 
                 Text( value != nil ? "\(value ?? 0)" : "-")
-                    .font(.system(size: 70))
+                    .font(.system(size: 40))
                     .foregroundStyle(.white)
                 
                 if let imageName = imageName {
