@@ -40,7 +40,7 @@ struct RemoteView: View {
                 .cornerRadius(80)
                 .padding(.horizontal, 25)
             
-            Spacer().frame(height: 40)
+            Spacer().frame(height: UIDevice.current.userInterfaceIdiom == .pad ?  40 : 100 )
     
         }
         .onAppear {

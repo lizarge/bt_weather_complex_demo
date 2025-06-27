@@ -106,7 +106,8 @@ struct ClockView: View {
             .stroke(Color.white, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                 .rotationEffect(Angle.degrees(360/60))
             
-        }.frame(alignment: .center).frame(width: 400, height: 400)
+        }.frame(alignment: .center)
+            .isHidden( UIDevice.current.userInterfaceIdiom != .pad ? true : false)
     }
 }
 
